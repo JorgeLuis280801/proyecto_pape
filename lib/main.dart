@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto_local/login.dart';
-import 'package:proyecto_local/register.dart';
 import 'package:proyecto_local/routes.dart';
+import 'package:proyecto_local/screens/login.dart';
 
 void main() {
   runApp(const MyApp());
