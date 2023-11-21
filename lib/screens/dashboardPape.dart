@@ -70,7 +70,7 @@ class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
               trailing: const Icon(Icons.chevron_right),
               title: const Text('Mi papeleria'),
               onTap: (){
-                Navigator.pushNamed(context, '/crud');
+                Navigator.pushNamed(context, '/crudProd');
               },
               ),
               const SizedBox(height: 300),

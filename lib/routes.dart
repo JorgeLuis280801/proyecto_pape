@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_local/screens/add_product.dart';
 import 'package:proyecto_local/screens/compras_screen.dart';
 import 'package:proyecto_local/screens/crud_product_screen.dart';
 import 'package:proyecto_local/screens/dashboardPape.dart';
@@ -7,6 +8,7 @@ import 'package:proyecto_local/screens/login.dart';
 import 'package:proyecto_local/screens/perfil_screen.dart';
 import 'package:proyecto_local/screens/productos_screen.dart';
 import 'package:proyecto_local/screens/register.dart';
+import 'package:proyecto_local/screens/upd_product.dart';
 import 'package:proyecto_local/screens/ventas_screen.dart';
 
 Map<String,WidgetBuilder> getRoutes(){
@@ -20,5 +22,7 @@ Map<String,WidgetBuilder> getRoutes(){
     '/crudProd' : (BuildContext context) => CrudProductScreen(),
     '/histVenta' : (BuildContext context) => HistorialVentasScreen(),
     '/ventas' : (BuildContext context) => VentasScreen(),
+    '/addP' : (BuildContext context) => AddP_Screen(),
+    '/updP' : (BuildContext context) => UpdP_Screen(),
   };
 }
