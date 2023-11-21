@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final txtUser = TextField(
       controller: txtConUser,
       decoration: const InputDecoration(
-        label: Text('Ingrese su usuario', style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
+        label: Text('Nombre de usuario:', style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0))
         ),
@@ -35,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
       controller: txtConPwd,
       obscureText: true,
       decoration: const InputDecoration(
-        label: Text('Ingrese su contraseña', style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
+        label: Text('Contraseña:', style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0))
         ),
@@ -47,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final btnLogin = ElevatedButton(
-      onPressed: (){}, 
+      onPressed: (){Navigator.pushNamed(context, '/dashboardPape');}, 
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 0)),
         fixedSize: MaterialStateProperty.all<Size>(const Size(200, 50)),
@@ -66,11 +67,36 @@ class _LoginScreenState extends State<LoginScreen> {
       child: const Text('Registrate aqui', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Iniciar sesion', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
-        centerTitle: true,
+    final btnGit = ElevatedButton(
+      onPressed: (){
+        
+      }, 
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 36, 36, 43)),
       ),
+      child: const Icon(Icons.gite, color: Colors.white,),
+    );
+    final btnFacebook = ElevatedButton(
+      onPressed: (){
+        
+      }, 
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 35, 35, 221)),
+      ),
+      child: const Icon(Icons.facebook, color: Colors.white,),
+    );
+    final btnGoogle = ElevatedButton(
+      onPressed: (){
+        
+      }, 
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 255, 255, 255)),
+      ),
+      child: const Icon(Icons.g_mobiledata),
+    );
+
+    return Scaffold(
+      //appBar: AppBar(title: const Text('Iniciar sesion', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),centerTitle: true,),
       body: Container(
         height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
@@ -80,37 +106,35 @@ class _LoginScreenState extends State<LoginScreen> {
         child: ListView(
           padding: const EdgeInsets.all(8.0),
           children: [
+            const SizedBox(height:30),
             Container(
               margin: const EdgeInsets.all(8.0),
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 13, 158, 225).withOpacity(0.8),
+                color: const Color.fromARGB(255, 161, 6, 6).withOpacity(0.8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Row(
                   children: [
-                    Image.asset('assets/images/icon_logo.png', height: 90,),
+                    Image.asset('assets/images/icon_logo.png', height: 70,),
                     const Text('PAPELERIA VIC', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 35),)
                   ],
                 ),
               ),
             ),
-            const Divider(
-                thickness: 8,
-                color: Color.fromARGB(255, 0, 0, 0),
-            ),
+            const SizedBox(height: 20,),
             Container(
               margin: const EdgeInsets.all(8.0),
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 13, 158, 225).withOpacity(0.8),
+                color: const Color.fromARGB(255, 161, 6, 6).withOpacity(0.8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Column(
                   children: [
-                    const Text('Ingrese sus datos para iniciar sesion', 
+                    const Text('Iniciar sesion', 
                       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30), 
                       textAlign: TextAlign.center
                     ),
@@ -130,38 +154,44 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           }
                         ),
-                        const Text('Desea mantener su sesion abierta?', 
+                        const Text('¿Desea mantener su sesion abierta?', 
                           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18)
                         ),
                       ],
                     ),
                     const SizedBox(height: 10),
                     btnLogin,
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        btnGit, btnFacebook, btnGoogle
+                      ],
+                    )
                   ],
                 )
               )
             ),
             const Divider(
-                thickness: 8,
+                thickness: 3,
                 color: Color.fromARGB(255, 0, 0, 0),
             ),
             Container(
               margin: const EdgeInsets.all(8.0),
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 13, 158, 225).withOpacity(0.8),
+                color: const Color.fromARGB(255, 161, 6, 6).withOpacity(0.8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Column(
                   children: [
-                    const Text('Nuevo por aqui?', 
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30), 
+                    const Text('¿Nuevo por aqui?', 
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25), 
                       textAlign: TextAlign.center
                     ),
                     const SizedBox(height: 10),
-                    const Text('Registrate para tener acceso a nuestra papeleria y poder comprar todo lo que necesites!', 
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20), 
+                    const Text('¡Registrate para tener acceso a nuestra papeleria y poder comprar todo lo que necesites!', 
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15), 
                       textAlign: TextAlign.center
                     ),
                     const SizedBox(height: 10),
