@@ -97,10 +97,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Registro de usuario', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
-        centerTitle: true,
-      ),
       body: Container(
         height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
@@ -110,31 +106,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: ListView(
           padding: const EdgeInsets.all(8.0),
           children: [
+            const SizedBox(height:60),
             Container(
               margin: const EdgeInsets.all(8.0),
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 13, 158, 225).withOpacity(0.8),
+                color: const Color.fromARGB(255, 161, 6, 6).withOpacity(0.8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
                 child: Row(
                   children: [
-                    Image.asset('assets/images/icon_logo.png', height: 90,),
+                    Image.asset('assets/images/icon_logo.png', height: 70,),
                     const Text('PAPELERIA VIC', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 35),)
                   ],
                 ),
               ),
             ),
-            const Divider(
-                thickness: 8,
-                color: Color.fromARGB(255, 0, 0, 0),
-            ),
             Container(
               margin: const EdgeInsets.all(8.0),
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 13, 158, 225).withOpacity(0.8),
+                color: const Color.fromARGB(255, 161, 6, 6).withOpacity(0.8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -158,15 +151,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 )
               )
             ),
-            const Divider(
-                thickness: 8,
-                color: Color.fromARGB(255, 0, 0, 0),
-            ),
             Container(
               margin: const EdgeInsets.all(8.0),
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 13, 158, 225).withOpacity(0.8),
+                color: const Color.fromARGB(255, 161, 6, 6).withOpacity(0.8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(

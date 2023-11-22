@@ -1,6 +1,8 @@
 import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:proyecto_local/assets/global_values.dart';
+import 'package:proyecto_local/assets/styles_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardPapeScreen extends StatefulWidget {
@@ -18,6 +20,9 @@ class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    
+
     final btnProductos= FloatingActionButton.extended(
         icon: const Icon(Icons.shopping_cart),
         label: const Text('Ver productos'),
@@ -25,8 +30,6 @@ class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
           Navigator.pushNamed(context, '/productos'); 
         },
     );
-
-    const space = SizedBox(height: 20,);
 
     return Scaffold(
       appBar: 
@@ -38,6 +41,7 @@ class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
   }
 
     Widget createDrawer(context){
+      final theme = Provider.of<ThemeChanger>(context);
     return Drawer(
       child: ListView(
         children: [
@@ -70,25 +74,22 @@ class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
               trailing: const Icon(Icons.chevron_right),
               title: const Text('Mi papeleria'),
               onTap: (){
-                Navigator.pushNamed(context, '/crudProd');
+                Navigator.pushNamed(context, '/miPape');
               },
               ),
               const SizedBox(height: 300),
             Container(
               padding: const EdgeInsets.only(right: 85, left: 85),
-              child: DayNightSwitcher(
-                isDarkModeEnabled: GlobalValues.flagProd.value,
-                onStateChanged: (isDarkModeEnabled) async {
-                    GlobalValues.flagTheme.value = isDarkModeEnabled;
-            
-                    final SharedPreferences prefs = await SharedPreferences.getInstance();
-                    await prefs.setBool('isDarkModeEnabled', isDarkModeEnabled);
+              child: ElevatedButton(
+                onPressed: () {
+                  theme.toogleTheme(context);
                 },
+                child: const Text("Cambiar tema"),
               ),
             ),
             const SizedBox(height: 20),
             Container(
-              padding: const EdgeInsets.only(right: 30, left: 30),
+              padding: const EdgeInsets.only(right: 35, left: 35),
               child: ElevatedButton(
                 onPressed: () async {
                   SharedPreferences prefs = await SharedPreferences.getInstance();

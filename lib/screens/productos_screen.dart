@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:pmsn20232/firebase/favorites_firebase.dart';
+import 'package:proyecto_local/firebase/firebase_BD.dart';
 
 class ProductosScreen extends StatefulWidget {
   const ProductosScreen({super.key});
@@ -10,13 +10,13 @@ class ProductosScreen extends StatefulWidget {
 
 class _ProductosScreenState extends State<ProductosScreen> {
 
-  //ProductsFirebase? _productsFB;
+  Prod_Firebase? _productsFB;
   TextEditingController txtConFiltro = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    //_productsFB = ProductsFirebase();
+    _productsFB = Prod_Firebase();
   }
 
   @override
@@ -39,97 +39,94 @@ class _ProductosScreenState extends State<ProductosScreen> {
     return Scaffold(
       appBar:
         AppBar(title: const Text('Nuestros productos', textAlign: TextAlign.center,),
+        //toolbarHeight: 200,
           actions: [
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 290),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: ()=>Navigator.pushNamed(context, '/carrito')
-                        .then((value){
-                          setState(() {
-                            
-                          });
-                        }), 
-                        icon: const Icon(Icons.shopping_cart)),
-                      IconButton(
-                        onPressed: ()=>Navigator.pushNamed(context, '/favoritos')
-                        .then((value){
-                          setState(() {
-                            
-                          });
-                        }), 
-                        icon: const Icon(Icons.favorite)),
-                    ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    txtFiltro
-                  ],
-                )
-              ],
-            )
+            IconButton(
+              onPressed: ()=>Navigator.pushNamed(context, '/carrito')
+              .then((value){
+                setState(() {
+                  
+                });
+              }), 
+              icon: const Icon(Icons.shopping_cart)),
+            IconButton(
+              onPressed: ()=>Navigator.pushNamed(context, '/favoritos')
+              .then((value){
+                setState(() {
+                  
+                });
+              }), 
+              icon: const Icon(Icons.favorite)),
+              
           ],
         ),
       body: 
-      Column(
-        children: [
-          Container(
+        StreamBuilder(
+          stream: _productsFB!.getAllProduct(),
+          builder: (context, snapshot) {
+            if(snapshot.hasData){
+              return GridView.builder(
+                padding: const EdgeInsets.all(10),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.7,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index){
+                  return GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/detailProd'),
+                    child:
+                        Card(
+                          elevation: 5,
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  Container( 
+                                    width: 160,
+                                    height: 170,
+                                    child: const FadeInImage(
+                                        fit: BoxFit.fill,
+                                        fadeInDuration: Duration(milliseconds: 700),
+                                        placeholder: AssetImage('assets/GIF/exp.gif'),
+                                        image: AssetImage('assets/images/icon_logo.png'),
+                                      ),
+                                  ),
+                                  const Positioned(
+                                    top: 5,
+                                    left: 0,
+                                    child: Icon(Icons.discount, color: Colors.red, size: 50,)),
+                                ],
+                              ),
+                              const Divider(thickness: 1,color: Color.fromARGB(255, 0, 0, 0),),
+                              Text(snapshot.data!.docs[index].get('nombre'), style: const TextStyle(color: Colors.black,),),
+                              const Divider(thickness: 1,color: Color.fromARGB(255, 0, 0, 0),),
+                              Text("Precio:            \$${snapshot.data!.docs[index].get('precio')?.toString() ?? 'N/A'}", style: const TextStyle(color: Colors.black),),
+                              Text("Stock:            xdxd", style: const TextStyle(color: Colors.black),),
+                            ],
+                          ),
+                        )
+                    );
+                });
+            }else{
+              if(snapshot.hasError){
+                return const Center(child: Text('Error'),);
+              }else{
+                return const Center(child:CircularProgressIndicator(),);
+              }
+            }
+          },
+        ),
+    );
+  }
+}
+
+          /*Container(
             color: Colors.grey,
             padding: const EdgeInsets.only(top: 5, right: 70, left: 70),
             child: 
               const Text("¡Hasta 20% de descuento en tus compras!", style: TextStyle(fontSize: 22),)
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                const SizedBox(height: 10,),
-                txtFiltro,
-                const SizedBox(height: 15,),
-                //aqui va el carrusel xd
-                const SizedBox(height: 30,),
-                /*StreamBuilder(
-                  stream: _productsFB!.getAllProducts(),
-                  builder: (context, snapshot) {
-                    if(snapshot.hasData){
-                      return ListView.builder(
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index){
-                          return GridView.builder(
-                            padding: const EdgeInsets.all(10),
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                            childAspectRatio: .9,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            ), 
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index){
-                              Image.network(snapshot.data!.docs[index].get('image'));
-                              Text(snapshot.data!.docs[index].get('name'));
-                              Text(snapshot.data!.docs[index].get('price'));
-                              Text(snapshot.data!.docs[index].get('stock'));
-                            });
-                        },
-                      );
-                    }else{
-                      if(snapshot.hasError){
-                        return const Center(child: Text('Error'),);
-                      }else{
-                        return const Center(child:CircularProgressIndicator(),);
-                      }
-                    }
-                  },
-                ),*/
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+          ),*/

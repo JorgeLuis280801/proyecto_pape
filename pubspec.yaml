@@ -41,3 +41,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/.
+     - assets/GIF/.
+     - assets/fonts/.
+
+  fonts:
+    - family: NotoSansJP
+      fonts:
+        - asset: assets/fonts/NotoSansJP-VariableFont_wght.ttf
+    - family: Quicksand
+      fonts: 
+        - asset: assets/fonts/Quicksand-VariableFont_wght.ttf

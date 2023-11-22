@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:proyecto_local/assets/styles_app.dart';
 import 'package:proyecto_local/routes.dart';
 import 'package:proyecto_local/screens/login.dart';
 
@@ -17,13 +19,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.dark()
-      ),
-      routes: getRoutes(),
-      home: LoginScreen(),
+
+    return ChangeNotifierProvider(
+      create: (context) => ThemeChanger(),
+      builder: (context, child){
+        final theme = Provider.of<ThemeChanger>(context);
+        return MaterialApp(
+          title: 'Flutter Demo',
+          theme: theme.theme,
+          routes: getRoutes(),
+          home: LoginScreen(),
+        );
+      },
     );
   }
 }

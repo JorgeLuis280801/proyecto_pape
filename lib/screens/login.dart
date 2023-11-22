@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: ListView(
           padding: const EdgeInsets.all(8.0),
           children: [
-            const SizedBox(height:30),
+            const SizedBox(height:60),
             Container(
               margin: const EdgeInsets.all(8.0),
               padding: const EdgeInsets.all(8.0),
@@ -164,17 +164,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        btnGit, btnFacebook, btnGoogle
+                        const SizedBox(width: 55,),
+                        btnGit, 
+                        const SizedBox(width: 20,),
+                        btnFacebook, 
+                        const SizedBox(width: 20,),
+                        btnGoogle
                       ],
                     )
                   ],
                 )
               )
             ),
+            const SizedBox(height: 20,),
             const Divider(
                 thickness: 3,
                 color: Color.fromARGB(255, 0, 0, 0),
             ),
+            //const SizedBox(height: 20,),
             Container(
               margin: const EdgeInsets.all(8.0),
               padding: const EdgeInsets.all(8.0),
