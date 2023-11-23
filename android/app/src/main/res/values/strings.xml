@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>   
+    <string name="app_name">Papeleria</string>
+    <string name="facebook_app_id">1235765077825722</string>
+    <string name="fb_login_protocol_scheme">fb1235765077825722</string>
+    <string name="facebook_client_token">c01300e06bde27e63cb2e635f0c3090c</string>
+</resources>

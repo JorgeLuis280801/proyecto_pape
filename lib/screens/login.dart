@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:proyecto_local/GlobalValues/usr_data.dart';
 import 'package:proyecto_local/firebase/email.dart';
+import 'package:proyecto_local/firebase/facebook.dart';
 import 'package:proyecto_local/firebase/github.dart';
 import 'package:proyecto_local/firebase/google.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final gitLogin = LogGit();
   final googleLogin = GoogleLog();
   final usrData = Usr_Data();
+  final facebookLogin = LogFacebook();
 
   String? UsuarioAct, FotoPerfil;
 
@@ -111,8 +113,11 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final btnFacebook = ElevatedButton(
-      onPressed: (){
-        
+      onPressed: () async{
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setBool('Recuerdame', marcado ?? false);
+        facebookLogin.signInWithFacebook();
+        Navigator.pushNamed(context, '/dashboardPape');
       }, 
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 35, 35, 221)),
