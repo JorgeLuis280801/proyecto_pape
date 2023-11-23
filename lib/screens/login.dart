@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:proyecto_local/GlobalValues/usr_data.dart';
 import 'package:proyecto_local/firebase/email.dart';
+import 'package:proyecto_local/firebase/github.dart';
+import 'package:proyecto_local/firebase/google.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,6 +22,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final txtConPwd = TextEditingController();
 
   final emailAuth = EmailAuth();
+  final gitLogin = LogGit();
+  final googleLogin = GoogleLog();
+  final usrData = Usr_Data();
+
+  String? UsuarioAct, FotoPerfil;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +66,8 @@ class _LoginScreenState extends State<LoginScreen> {
         prefs.setBool('Recuerdame', marcado ?? false);
         bool res = await emailAuth.verifyUsr(email: txtConUser.text, pwdUser: txtConPwd.text);
         if (res) {
+          UsuarioAct = txtConUser.text;
+          usrData.EmailUsr(UsuarioAct!);
           Navigator.pushNamed(context, '/dashboardPape');
         }else{
           var snackbar = SnackBar(content: Text('Credenciales incorrectas'));
@@ -82,14 +93,23 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final btnGit = ElevatedButton(
-      onPressed: (){
-        
+      onPressed: () async{
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setBool('Recuerdame', marcado ?? false);
+        UserCredential userCredential = await gitLogin.signInGit(); 
+        print("Creo si jalo :v");
+        UsuarioAct = userCredential.additionalUserInfo!.profile!['login'] as String?;
+        FotoPerfil = userCredential.user!.photoURL;
+        usrData.ActUsr(UsuarioAct!);
+        usrData.FotoUsr(FotoPerfil!);
+        Navigator.pushNamed(context, '/dashboardPape');
       }, 
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 36, 36, 43)),
       ),
       child: const Icon(Icons.gite, color: Colors.white,),
     );
+
     final btnFacebook = ElevatedButton(
       onPressed: (){
         
@@ -99,9 +119,13 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       child: const Icon(Icons.facebook, color: Colors.white,),
     );
+
     final btnGoogle = ElevatedButton(
-      onPressed: (){
-        
+      onPressed: () async{
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setBool('Recuerdame', marcado ?? false);
+        User? user = await googleLogin.signInWithGoogle();
+        Navigator.pushNamed(context, '/dashboardPape');
       }, 
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 117, 117, 117)),

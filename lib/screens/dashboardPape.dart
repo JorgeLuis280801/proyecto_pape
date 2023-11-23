@@ -1,6 +1,7 @@
 import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:proyecto_local/GlobalValues/usr_data.dart';
 import 'package:proyecto_local/assets/global_values.dart';
 import 'package:proyecto_local/assets/styles_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,12 +17,18 @@ class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
   @override
   void initState() {
     super.initState();
+    usr = usrData.UsuarioAct;
+    email = usrData.EmailAct;
+    foto = usrData.FotoPerfil;
   }
+
+  final usrData = Usr_Data();
+
+  String? usr, email, foto;
+  
 
   @override
   Widget build(BuildContext context) {
-
-    
 
     final btnProductos= FloatingActionButton.extended(
         icon: const Icon(Icons.shopping_cart),
@@ -49,8 +56,8 @@ class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtwxHjIdPiNd-UXHdVZn9lZP3SLjRXEQSfUw&usqp=CAU'),
             ),
-            accountName: Text('Edgar Gabriel M.'), 
-            accountEmail: Text('email')
+            accountName: Text('Egar'), 
+            accountEmail: Text('Email')
             ),
             const SizedBox(height: 20),
             ListTile(
