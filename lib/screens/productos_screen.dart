@@ -88,11 +88,11 @@ class _ProductosScreenState extends State<ProductosScreen> {
                                   Container( 
                                     width: 160,
                                     height: 170,
-                                    child: const FadeInImage(
+                                    child: FadeInImage(
                                         fit: BoxFit.fill,
                                         fadeInDuration: Duration(milliseconds: 700),
                                         placeholder: AssetImage('assets/GIF/exp.gif'),
-                                        image: AssetImage('assets/images/icon_logo.png'),
+                                        image: NetworkImage('${snapshot.data!.docs[index].get('URL') ?? ''}'),
                                       ),
                                   ),
                                   const Positioned(
@@ -105,7 +105,7 @@ class _ProductosScreenState extends State<ProductosScreen> {
                               Text(snapshot.data!.docs[index].get('nombre'), style: const TextStyle(color: Colors.black,),),
                               const Divider(thickness: 1,color: Color.fromARGB(255, 0, 0, 0),),
                               Text("Precio:            \$${snapshot.data!.docs[index].get('precio')?.toString() ?? 'N/A'}", style: const TextStyle(color: Colors.black),),
-                              Text("Stock:            xdxd", style: const TextStyle(color: Colors.black),),
+                              Text("Stock:            ${snapshot.data!.docs[index].get('stock')?.toString() ?? 'N/A'} pzas", style: const TextStyle(color: Colors.black),),
                             ],
                           ),
                         )

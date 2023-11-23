@@ -44,9 +44,11 @@ class _CrudProductScreenState extends State<CrudProductScreen>{
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(snapshot.data!.docs[index].get('nombre')),
-                            Text(snapshot.data!.docs[index].get('descripcion')),
-                            Text(snapshot.data!.docs[index].get('precio').toString()),
+                            Text('Producto: ${snapshot.data!.docs[index].get('nombre')}'),
+                            Text('Descripcion: ${snapshot.data!.docs[index].get('descripcion')}'),
+                            Text('Precio: ${snapshot.data!.docs[index].get('precio').toString()}'),
+                            Text('Cantidad: ${snapshot.data!.docs[index].get('stock').toString()}'),
+                            Text('Descuento: ${snapshot.data!.docs[index].get('descuento')}'),
                           ],
                         ),
                         Expanded(child: Container()),
@@ -58,6 +60,9 @@ class _CrudProductScreenState extends State<CrudProductScreen>{
                               "nombre" : snapshot.data!.docs[index]['nombre'],
                               "descripcion" : snapshot.data!.docs[index]['descripcion'],
                               "precio" : snapshot.data!.docs[index]['precio'],
+                              "stock" : snapshot.data!.docs[index]['stock'],
+                              "descuento" : snapshot.data!.docs[index]['descuento'],
+                              "URL" : snapshot.data!.docs[index]['URL'],
                             });
                             
                             setState(() {
