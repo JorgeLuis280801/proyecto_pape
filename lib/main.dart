@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'package:proyecto_local/notif_service.dart';
 import 'package:proyecto_local/routes.dart';
 import 'package:proyecto_local/screens/add_product.dart';
 import 'package:proyecto_local/screens/login.dart';
+import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 
 void main() async{
 
@@ -19,6 +21,9 @@ void main() async{
 }
 
 class MyApp extends StatelessWidget {
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseInAppMessaging fiam = FirebaseInAppMessaging.instance;
+  
   const MyApp({super.key});
 
   @override
