@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:proyecto_local/firebase/email.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,6 +16,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final txtConUser = TextEditingController();
   final txtConPwd = TextEditingController();
+
+  final emailAuth = EmailAuth();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final btnLogin = ElevatedButton(
-      onPressed: (){Navigator.pushNamed(context, '/dashboardPape');}, 
+      onPressed: () async{
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setBool('Recuerdame', marcado ?? false);
+        bool res = await emailAuth.verifyUsr(email: txtConUser.text, pwdUser: txtConPwd.text);
+        if (res) {
+          Navigator.pushNamed(context, '/dashboardPape');
+        }else{
+          var snackbar = SnackBar(content: Text('Credenciales incorrectas'));
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        }
+      }, 
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 0)),
         fixedSize: MaterialStateProperty.all<Size>(const Size(200, 50)),
@@ -57,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final btnRegistro = ElevatedButton(
-      onPressed: (){
+      onPressed: () {
         Navigator.pushNamed(context, '/reg');
       }, 
       style: ButtonStyle(
@@ -90,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
         
       }, 
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 255, 255, 255)),
+        backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 117, 117, 117)),
       ),
       child: const Icon(Icons.g_mobiledata),
     );

@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child){
         final theme = Provider.of<ThemeChanger>(context);
         return MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Papeleria VIC',
           theme: theme.theme,
           routes: getRoutes(),
           home: LoginScreen(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_local/firebase/email.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -14,6 +15,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final txtConUser = TextEditingController();
   final txtConPwd = TextEditingController();
   final txtConPwdConf = TextEditingController();
+
+  final emailauth = EmailAuth();
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +80,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     final btnRegUsr = ElevatedButton(
-      onPressed: (){}, 
+      onPressed: (){
+        String email = txtConEmail.text;
+        String pwd = txtConPwd.text;
+        emailauth.createUser(email: email, pwdUser: pwd);
+        Navigator.pop(context);
+      }, 
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 0)),
         fixedSize: MaterialStateProperty.all<Size>(const Size(200, 50)),
