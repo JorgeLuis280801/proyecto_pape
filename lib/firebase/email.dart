@@ -5,16 +5,24 @@ class EmailAuth {
   final FirebaseAuth auth = FirebaseAuth.instance;
   String? avr = 'Hola';
 
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
   Future<bool> createUser({
     required String email,
-    required String pwdUser
+    required String pwdUser,
   }) async {
     try {
-      final usrCredentials = await auth.createUserWithEmailAndPassword(email: email, password: pwdUser);
-      usrCredentials.user!.sendEmailVerification();
-      print('Si jalo al parecer :v');
+      final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: pwdUser,
+      );
+
+      await userCredential.user!.sendEmailVerification();
+
+      print('Correo de verificación enviado.');
       return true;
     } catch (e) {
+      print('Error al crear usuario: $e');
       return false;
     }
   }
@@ -32,6 +40,19 @@ class EmailAuth {
       }
     } on Exception catch (e) {
       return false;
+    }
+  }
+
+  Future<void> resendConfirmationEmail(String email) async {
+    try {
+      User? user = _auth.currentUser;
+
+      if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+        print('Correo de verificación reenviado.');
+      }
+    } catch (e) {
+      print('Error al reenviar correo de verificación: $e');
     }
   }
 

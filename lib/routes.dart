@@ -10,6 +10,7 @@ import 'package:proyecto_local/screens/historial_venta_screen.dart';
 import 'package:proyecto_local/screens/login.dart';
 import 'package:proyecto_local/screens/perfil_screen.dart';
 import 'package:proyecto_local/screens/productos_screen.dart';
+import 'package:proyecto_local/screens/pwd_recovery.dart';
 import 'package:proyecto_local/screens/register.dart';
 import 'package:proyecto_local/screens/upd_product.dart';
 import 'package:proyecto_local/screens/ventas_screen.dart';
@@ -30,5 +31,6 @@ Map<String,WidgetBuilder> getRoutes(){
     '/updP' : (BuildContext context) => UpdP_Screen(),
     '/carrito' : (BuildContext context) => CarritoScreen(),
     '/historial' : (BuildContext context) => HistorialScreen(),
+    '/pwdRec' : (BuildContext context) => PwdRec_Screen(),
   };
 }

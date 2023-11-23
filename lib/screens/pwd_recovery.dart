@@ -2,24 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_local/firebase/email.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class PwdRec_Screen extends StatefulWidget {
+  const PwdRec_Screen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<PwdRec_Screen> createState() => _PwdRec_ScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  bool? marcado = false;
-
+class _PwdRec_ScreenState extends State<PwdRec_Screen> {
   final txtConEmail = TextEditingController();
-  final txtConUser = TextEditingController();
-  final txtConPwd = TextEditingController();
-  final txtConPwdConf = TextEditingController();
 
   final emailauth = EmailAuth();
-
-  String? email;
 
   @override
   Widget build(BuildContext context) {
@@ -37,48 +30,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
       style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
     );
-
-    final txtPwd = TextField(
-      controller: txtConPwd,
-      obscureText: true,
-      decoration: const InputDecoration(
-        label: Text('Ingrese su contraseña', style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0))
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0))
-        ),
-      ),
-      style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-    );
-
-    final txtPwdConf = TextField(
-      controller: txtConPwdConf,
-      obscureText: true,
-      decoration: const InputDecoration(
-        label: Text('Confirme su contraseña', style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0))
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0))
-        ),
-      ),
-      style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-    );
-
-    final btnRegUsr = ElevatedButton(
-      onPressed: (){
-        email = txtConEmail.text;
-        String pwd = txtConPwd.text;
-        emailauth.createUser(email: email!, pwdUser: pwd);
+    
+    final btnRecPwd = ElevatedButton(
+      onPressed: () async{
+        try {
+          FirebaseAuth.instance.sendPasswordResetEmail(email: txtConEmail.text);
+          var snackbar = SnackBar(content: Text('Correo enviado!!'));
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        } catch (e) {
+          var snackbar = SnackBar(content: Text('Verifique si el correo es correcto'));
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        }
+        
       }, 
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 0)),
         fixedSize: MaterialStateProperty.all<Size>(const Size(200, 50)),
       ),
-      child: const Text('Registrarse', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
+      child: const Text('Enviar correo', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
     );
 
     final btnAtras = ElevatedButton(
@@ -89,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 0)),
         fixedSize: MaterialStateProperty.all<Size>(const Size(500, 50)),
       ),
-      child: const Text('Cancelar registro', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
+      child: const Text('Volver', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
     );
 
     return Scaffold(
@@ -129,50 +98,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Center(
                 child: Column(
                   children: [
-                    const Text('Llene los campos para registrarse en la plataforma', 
+                    const Text('Ingrese su email para enviarle un correo de recuperacion de contraseña', 
                       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30), 
                       textAlign: TextAlign.center
                     ),
                     const SizedBox(height: 10),
                     txtEmail,
                     const SizedBox(height: 10),
-                    txtPwd,
-                    const SizedBox(height: 10),
-                    txtPwdConf,
-                    const SizedBox(height: 10),
-                    btnRegUsr
+                    btnRecPwd
                   ],
                 )
               )
-            ),
-            Container(
-              margin: const EdgeInsets.all(8.0),
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 161, 6, 6).withOpacity(0.8),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: Column(
-                  children: [
-                    TextButton(
-                      onPressed: ()async{
-                        try {
-                          await emailauth.resendConfirmationEmail(email!);
-                          // Puedes mostrar un mensaje de éxito o redirigir al usuario a otra pantalla
-                          print('Correo de verificación enviado exitosamente');
-                        } catch (e) {
-                          print('Error al enviar el correo de verificación: $e');
-                        }
-                      }, 
-                      child: const Text('Cuando completes tu registro se enviara un correo de verificacion al email que proporcionaste, en caso de aun no recibirlo puedes reenviarlo presionando aqui', 
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15), 
-                        textAlign: TextAlign.center
-                      ),
-                    )
-                  ],
-                ),
-              ),
             ),
             Container(
               margin: const EdgeInsets.all(8.0),

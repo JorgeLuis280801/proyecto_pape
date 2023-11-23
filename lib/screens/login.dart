@@ -138,6 +138,17 @@ class _LoginScreenState extends State<LoginScreen> {
       child: const Icon(Icons.g_mobiledata),
     );
 
+    final btnRecPwd = TextButton.icon(
+      onPressed: (){
+        Navigator.pushNamed(context, '/pwdRec');
+      }, 
+      icon: const Icon(Icons.password, color: Color.fromARGB(255, 255, 255, 255),), 
+      label: const Text('Olvidaste tu contraseña?', 
+        style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), 
+        fontWeight: FontWeight.bold, 
+        fontSize: 18),)
+      );
+
     return Scaffold(
       //appBar: AppBar(title: const Text('Iniciar sesion', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),centerTitle: true,),
       body: Container(
@@ -186,6 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 10),
                     txtPwd,
                     const SizedBox(height: 10),
+                    btnRecPwd,
                     Row(
                       children: [
                         Checkbox(
