@@ -35,7 +35,7 @@ class _CrudProductScreenState extends State<CrudProductScreen>{
                   margin: const EdgeInsets.all(8.0),
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 161, 6, 6).withOpacity(0.8),
+                    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.8),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Center(

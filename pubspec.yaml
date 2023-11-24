@@ -36,6 +36,10 @@ dependencies:
   firebase_messaging: ^14.7.5
   firebase_in_app_messaging: ^0.7.4+5
   firebase_analytics: ^10.7.1
+  carousel_slider: ^4.2.1
+  equatable: ^2.0.0
+  modal_bottom_sheet: ^2.1.2
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:

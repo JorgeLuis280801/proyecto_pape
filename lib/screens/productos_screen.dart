@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_local/firebase/firebase_BD.dart';
 
@@ -92,7 +93,7 @@ class _ProductosScreenState extends State<ProductosScreen> {
                                         fit: BoxFit.fill,
                                         fadeInDuration: Duration(milliseconds: 700),
                                         placeholder: AssetImage('assets/GIF/exp.gif'),
-                                        image: NetworkImage('${snapshot.data!.docs[index].get('URL') ?? ''}'),
+                                        image: CachedNetworkImageProvider('${snapshot.data!.docs[index].get('URL') ?? ''}'),
                                       ),
                                   ),
                                   const Positioned(

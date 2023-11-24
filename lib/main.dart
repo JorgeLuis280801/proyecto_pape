@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:proyecto_local/assets/provider.dart';
 import 'package:proyecto_local/assets/styles_app.dart';
 import 'package:proyecto_local/notif_service.dart';
 import 'package:proyecto_local/routes.dart';
@@ -38,8 +39,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return ChangeNotifierProvider(
-      create: (context) => ThemeChanger(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeChanger()),
+        ChangeNotifierProvider(create: (context) => ModalValue()),
+      ],
       builder: (context, child){
         final theme = Provider.of<ThemeChanger>(context);
         return MaterialApp(

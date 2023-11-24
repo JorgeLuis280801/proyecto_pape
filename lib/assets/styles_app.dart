@@ -4,12 +4,10 @@ class StylesApp {
   static ThemeData lightTheme(BuildContext context){
     final theme = ThemeData.light();
     return theme.copyWith(
-      colorScheme: Theme.of(context).colorScheme.copyWith(
-        primary: const Color.fromARGB(255, 0, 120, 184),
-        secondary: const Color.fromARGB(255, 0, 166, 255),
-      ),
       primaryColor: const Color.fromARGB(255, 0, 120, 184),
       secondaryHeaderColor: const Color.fromARGB(255, 0, 166, 255),
+      scaffoldBackgroundColor: const Color.fromARGB(255, 86, 100, 107),
+      drawerTheme: const DrawerThemeData(backgroundColor: Color.fromARGB(255, 86, 100, 107),),
       appBarTheme: const AppBarTheme(
         backgroundColor: Color.fromARGB(255, 0, 120, 184),
       ),
@@ -29,10 +27,16 @@ class StylesApp {
         ),
       ),
       textTheme: const TextTheme(
-        bodyText2: TextStyle(
-          fontFamily: "NotoSansJP",
+        headline2: TextStyle(
+          fontFamily: "Quicksand",
+          color: Colors.black
         )
-      )
+      ), colorScheme: Theme.of(context).colorScheme.copyWith(
+        primary: const Color.fromARGB(255, 0, 120, 184),
+        secondary: const Color.fromARGB(255, 0, 166, 255),
+        background: const Color.fromARGB(255, 86, 100, 107),
+        onBackground: const Color.fromARGB(255, 86, 100, 107),
+      ).copyWith(background: const Color.fromARGB(255, 86, 100, 107))
     );
   }
 
@@ -63,6 +67,12 @@ class StylesApp {
           ),
         ),
       ),
+      textTheme: const TextTheme(
+        headline1: TextStyle(
+          fontFamily: "Quicksand",
+          color: Colors.white
+        )
+      )
     );
   }
 }

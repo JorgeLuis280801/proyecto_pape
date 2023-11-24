@@ -130,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Column(
                   children: [
                     const Text('Llene los campos para registrarse en la plataforma', 
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30), 
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30,fontFamily: "Quicksand"), 
                       textAlign: TextAlign.center
                     ),
                     const SizedBox(height: 10),
@@ -166,7 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         }
                       }, 
                       child: const Text('Cuando completes tu registro se enviara un correo de verificacion al email que proporcionaste, en caso de aun no recibirlo puedes reenviarlo presionando aqui', 
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15), 
+                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15,fontFamily: "Quicksand"), 
                         textAlign: TextAlign.center
                       ),
                     )

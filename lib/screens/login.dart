@@ -117,7 +117,8 @@ class _LoginScreenState extends State<LoginScreen> {
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 36, 36, 43)),
       ),
-      child: const Icon(Icons.gite, color: Colors.white,),
+      child: //const Icon(Icons.gite, color: Colors.white,),
+        const Text("Github", style: TextStyle(fontFamily: "Quicksand"),)
     );
 
     final btnFacebook = ElevatedButton(
@@ -166,7 +167,8 @@ class _LoginScreenState extends State<LoginScreen> {
       label: const Text('Olvidaste tu contraseña?', 
         style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), 
         fontWeight: FontWeight.bold, 
-        fontSize: 18),)
+        fontSize: 16,
+        fontFamily: "Quicksand"),)
       );
 
     return Scaffold(
@@ -180,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: ListView(
           padding: const EdgeInsets.all(8.0),
           children: [
-            const SizedBox(height:60),
+            const SizedBox(height:50),
             Container(
               margin: const EdgeInsets.all(8.0),
               padding: const EdgeInsets.all(8.0),
@@ -209,14 +211,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     const Text('Iniciar sesion', 
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30), 
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30, fontFamily: "NotoSansJP"), 
                       textAlign: TextAlign.center
                     ),
                     const SizedBox(height: 10),
                     txtUser,
                     const SizedBox(height: 10),
                     txtPwd,
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 2),
                     btnRecPwd,
                     Row(
                       children: [
@@ -230,7 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         ),
                         const Text('¿Desea mantener su sesion abierta?', 
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18)
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16,fontFamily: "Quicksand")
                         ),
                       ],
                     ),
@@ -251,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 )
               )
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(height: 10,),
             const Divider(
                 thickness: 3,
                 color: Color.fromARGB(255, 0, 0, 0),
