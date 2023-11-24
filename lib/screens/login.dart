@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:proyecto_local/GlobalValues/usr_data.dart';
 import 'package:proyecto_local/firebase/email.dart';
@@ -28,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final usrData = Usr_Data();
   final facebookLogin = LogFacebook();
 
-  String? UsuarioAct, FotoPerfil;
+  String? UsuarioAct, FotoPerfil, EmailAct;
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +67,16 @@ class _LoginScreenState extends State<LoginScreen> {
       onPressed: () async{
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setBool('Recuerdame', marcado ?? false);
+        
         bool res = await emailAuth.verifyUsr(email: txtConUser.text, pwdUser: txtConPwd.text);
         if (res) {
-          UsuarioAct = txtConUser.text;
-          usrData.EmailUsr(UsuarioAct!);
+          EmailAct = txtConUser.text;
+          usrData.EmailUsr(EmailAct!);
+          UsuarioAct = '';
+          FotoPerfil = '';
+          prefs.setString('User', UsuarioAct!);
+          prefs.setString('Foto', FotoPerfil!);
+          prefs.setString('Email', EmailAct!);
           Navigator.pushNamed(context, '/dashboardPape');
         }else{
           var snackbar = SnackBar(content: Text('Credenciales incorrectas'));
@@ -99,11 +106,12 @@ class _LoginScreenState extends State<LoginScreen> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setBool('Recuerdame', marcado ?? false);
         UserCredential userCredential = await gitLogin.signInGit(); 
-        print("Creo si jalo :v");
         UsuarioAct = userCredential.additionalUserInfo!.profile!['login'] as String?;
         FotoPerfil = userCredential.user!.photoURL;
-        usrData.ActUsr(UsuarioAct!);
-        usrData.FotoUsr(FotoPerfil!);
+        EmailAct = userCredential.user!.email;
+        prefs.setString('User', UsuarioAct!);
+        prefs.setString('Foto', FotoPerfil!);
+        prefs.setString('Email', EmailAct!);
         Navigator.pushNamed(context, '/dashboardPape');
       }, 
       style: ButtonStyle(
@@ -116,7 +124,13 @@ class _LoginScreenState extends State<LoginScreen> {
       onPressed: () async{
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setBool('Recuerdame', marcado ?? false);
-        facebookLogin.signInWithFacebook();
+        UserCredential? userCredential = await facebookLogin.signInWithFacebook();
+        UsuarioAct = userCredential!.user!.displayName;
+        EmailAct = userCredential.user!.email;
+        FotoPerfil = userCredential.user!.photoURL;
+        prefs.setString('User', UsuarioAct!);
+        prefs.setString('Foto', FotoPerfil!);
+        prefs.setString('Email', EmailAct!);
         Navigator.pushNamed(context, '/dashboardPape');
       }, 
       style: ButtonStyle(
@@ -130,6 +144,12 @@ class _LoginScreenState extends State<LoginScreen> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setBool('Recuerdame', marcado ?? false);
         User? user = await googleLogin.signInWithGoogle();
+        UsuarioAct = user!.displayName;
+        FotoPerfil = user.photoURL;
+        EmailAct = user.email;
+        prefs.setString('User', UsuarioAct!);
+        prefs.setString('Foto', FotoPerfil!);
+        prefs.setString('Email', EmailAct!);
         Navigator.pushNamed(context, '/dashboardPape');
       }, 
       style: ButtonStyle(

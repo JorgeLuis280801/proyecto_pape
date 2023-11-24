@@ -14,18 +14,24 @@ class DashboardPapeScreen extends StatefulWidget {
 }
 
 class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    usr = usrData.UsuarioAct;
-    email = usrData.EmailAct;
-    foto = usrData.FotoPerfil;
+  
+  String? usr, email, foto;
+
+  Future<void> loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      print('Ya jaloo');
+      usr = prefs.getString('User') ?? 'Usuario no especificado';
+      email = prefs.getString('Email') ?? 'Email no especificado';
+      foto = prefs.getString('Foto') ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtwxHjIdPiNd-UXHdVZn9lZP3SLjRXEQSfUw&usqp=CAU';
+    });
   }
 
-  final usrData = Usr_Data();
-
-  String? usr, email, foto;
-  
+  @override
+  void initState(){
+    super.initState();
+    loadUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,7 @@ class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
 
     return Scaffold(
       appBar: 
-        AppBar(title: const Text('Bienvenido "user"'),
+        AppBar(title: Text('Bienvenido $usr' ?? 'Bienvenido :D'),
         ),
         drawer: createDrawer(context),
       floatingActionButton: btnProductos,
@@ -52,12 +58,12 @@ class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
     return Drawer(
       child: ListView(
         children: [
-          const UserAccountsDrawerHeader(
+          UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtwxHjIdPiNd-UXHdVZn9lZP3SLjRXEQSfUw&usqp=CAU'),
+              backgroundImage: NetworkImage(foto ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtwxHjIdPiNd-UXHdVZn9lZP3SLjRXEQSfUw&usqp=CAU'),
             ),
-            accountName: Text('Egar'), 
-            accountEmail: Text('Email')
+            accountName: Text('Usuario: $usr'), 
+            accountEmail: Text('Email: $email')
             ),
             const SizedBox(height: 20),
             ListTile(
@@ -100,6 +106,10 @@ class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
               child: ElevatedButton(
                 onPressed: () async {
                   SharedPreferences prefs = await SharedPreferences.getInstance();
+                  prefs.remove('User');
+                  prefs.remove('Email');
+                  prefs.remove('Foto');
+                  prefs.remove('Recuerdame');
                   Navigator.pushReplacementNamed(context, '/login');
                 }, 
                 child: const Text('Salir'),),

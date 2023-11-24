@@ -8,6 +8,7 @@ import 'package:proyecto_local/routes.dart';
 import 'package:proyecto_local/screens/add_product.dart';
 import 'package:proyecto_local/screens/login.dart';
 import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async{
 
@@ -16,15 +17,23 @@ void main() async{
   await Firebase.initializeApp();
 
   await NotificationService().initNotifications();
+
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  bool remember = prefs.getBool('Recuerdame') ?? false;
   
-  runApp(const MyApp());
+  runApp(MyApp(
+    remember: remember,
+  ));
 }
 
 class MyApp extends StatelessWidget {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseInAppMessaging fiam = FirebaseInAppMessaging.instance;
   
-  const MyApp({super.key});
+  const MyApp({super.key, required this.remember});
+
+  final bool remember;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +46,7 @@ class MyApp extends StatelessWidget {
           title: 'Papeleria VIC',
           theme: theme.theme,
           routes: getRoutes(),
-          home: LoginScreen(),
+          initialRoute: remember ? '/dashboardPape' : '/login',
         );
       },
     );
