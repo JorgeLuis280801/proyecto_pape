@@ -34,9 +34,14 @@ class _PwdRec_ScreenState extends State<PwdRec_Screen> {
     final btnRecPwd = ElevatedButton(
       onPressed: () async{
         try {
-          FirebaseAuth.instance.sendPasswordResetEmail(email: txtConEmail.text);
-          var snackbar = SnackBar(content: Text('Correo enviado!!'));
-          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          if (txtConEmail.text.isEmpty) {
+            var snackbar = SnackBar(content: Text('Indique su correo porfavor'));
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          }else{
+            FirebaseAuth.instance.sendPasswordResetEmail(email: txtConEmail.text);
+            var snackbar = SnackBar(content: Text('Correo enviado!!'));
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          }
         } catch (e) {
           var snackbar = SnackBar(content: Text('Verifique si el correo es correcto'));
           ScaffoldMessenger.of(context).showSnackBar(snackbar);

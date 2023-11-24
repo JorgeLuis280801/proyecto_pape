@@ -77,37 +77,42 @@ class _ProductosScreenState extends State<ProductosScreen> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index){
                   return GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/detailProd'),
+                    onTap: () {},
                     child:
-                        Card(
-                          elevation: 5,
+                        Container(
                           color: Colors.white,
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  Container( 
-                                    width: 160,
-                                    height: 170,
-                                    child: FadeInImage(
-                                        fit: BoxFit.fill,
-                                        fadeInDuration: Duration(milliseconds: 700),
-                                        placeholder: AssetImage('assets/GIF/exp.gif'),
-                                        image: CachedNetworkImageProvider('${snapshot.data!.docs[index].get('URL') ?? ''}'),
-                                      ),
-                                  ),
-                                  const Positioned(
-                                    top: 5,
-                                    left: 0,
-                                    child: Icon(Icons.discount, color: Colors.red, size: 50,)),
-                                ],
-                              ),
-                              const Divider(thickness: 1,color: Color.fromARGB(255, 0, 0, 0),),
-                              Text(snapshot.data!.docs[index].get('nombre'), style: const TextStyle(color: Colors.black,),),
-                              const Divider(thickness: 1,color: Color.fromARGB(255, 0, 0, 0),),
-                              Text("Precio:            \$${snapshot.data!.docs[index].get('precio')?.toString() ?? 'N/A'}", style: const TextStyle(color: Colors.black),),
-                              Text("Stock:            ${snapshot.data!.docs[index].get('stock')?.toString() ?? 'N/A'} pzas", style: const TextStyle(color: Colors.black),),
-                            ],
+                          child: Expanded(
+                            flex: 10,
+                            child: Column(
+                              children: [
+                                Stack(
+                                  children: [
+                                    Container( 
+                                      width: 160,
+                                      height: 170,
+                                      child: FadeInImage(
+                                          fit: BoxFit.fill,
+                                          fadeInDuration: Duration(milliseconds: 700),
+                                          placeholder: AssetImage('assets/GIF/exp.gif'),
+                                          image: CachedNetworkImageProvider('${snapshot.data!.docs[index].get('URL') ?? ''}'),
+                                        ),
+                                    ),
+                                    Positioned(
+                                      top: 5,
+                                      left: 0,
+                                      child: 
+                                      Icon(Icons.discount, color: snapshot.data!.docs[index].get('descuento') == 'Sin descuento' ? 
+                                      const Color.fromARGB(255, 0, 0, 0) : const Color.fromARGB(255, 255, 0, 0), 
+                                      size: 50,)),
+                                  ],
+                                ),
+                                const Divider(thickness: 1,color: Color.fromARGB(255, 0, 0, 0),),
+                                Text(snapshot.data!.docs[index].get('nombre'), style: const TextStyle(color: Colors.black,),),
+                                const Divider(thickness: 1,color: Color.fromARGB(255, 0, 0, 0),),
+                                Text("Precio:            \$${snapshot.data!.docs[index].get('precio')?.toString() ?? 'N/A'}", style: const TextStyle(color: Colors.black),),
+                                Text("Stock:            ${snapshot.data!.docs[index].get('stock')?.toString() ?? 'N/A'} pzas", style: const TextStyle(color: Colors.black),),
+                              ],
+                            ),
                           ),
                         )
                     );
@@ -124,10 +129,3 @@ class _ProductosScreenState extends State<ProductosScreen> {
     );
   }
 }
-
-          /*Container(
-            color: Colors.grey,
-            padding: const EdgeInsets.only(top: 5, right: 70, left: 70),
-            child: 
-              const Text("¡Hasta 20% de descuento en tus compras!", style: TextStyle(fontSize: 22),)
-          ),*/

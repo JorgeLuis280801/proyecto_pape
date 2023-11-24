@@ -41,15 +41,18 @@ class _CrudProductScreenState extends State<CrudProductScreen>{
                   child: Center(
                     child: Row(
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Producto: ${snapshot.data!.docs[index].get('nombre')}'),
-                            Text('Descripcion: ${snapshot.data!.docs[index].get('descripcion')}'),
-                            Text('Precio: ${snapshot.data!.docs[index].get('precio').toString()}'),
-                            Text('Cantidad: ${snapshot.data!.docs[index].get('stock').toString()}'),
-                            Text('Descuento: ${snapshot.data!.docs[index].get('descuento')}'),
-                          ],
+                        Expanded(
+                          flex: 3,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Producto: ${snapshot.data!.docs[index].get('nombre')}'),
+                              Text('Descripcion: ${snapshot.data!.docs[index].get('descripcion')}'),
+                              Text('Precio: ${snapshot.data!.docs[index].get('precio').toString()}'),
+                              Text('Cantidad: ${snapshot.data!.docs[index].get('stock').toString()}'),
+                              Text('Descuento: ${snapshot.data!.docs[index].get('descuento')}'),
+                            ],
+                          ),
                         ),
                         Expanded(child: Container()),
                         IconButton(
@@ -71,13 +74,13 @@ class _CrudProductScreenState extends State<CrudProductScreen>{
                           }
                         ),
                         IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.white), 
+                          icon: const Icon(Icons.delete, color: Color.fromARGB(255, 255, 255, 255)), 
                           onPressed: () async{
                             await showDialog(
                               context: context, 
                               builder: (context){
                                 return AlertDialog(
-                                  title: Text('¿Desea eliminar el producto ${snapshot.data!.docs[index]['nombre']}'),
+                                  title: Text('¿Desea eliminar el producto ${snapshot.data!.docs[index]['nombre']}', style: TextStyle(color: Colors.black),),
                                   actions: [
                                     TextButton(
                                       onPressed: (){
@@ -93,7 +96,7 @@ class _CrudProductScreenState extends State<CrudProductScreen>{
                                         });
                                         return Navigator.pop(context, true);
                                       }, 
-                                      child: const Text("Eliminar", style: TextStyle(color: Colors.white),)
+                                      child: const Text("Eliminar", style: TextStyle(color: Color.fromARGB(255, 45, 251, 4)),)
                                     ),
                                   ],
                                 );

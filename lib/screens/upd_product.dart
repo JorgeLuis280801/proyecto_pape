@@ -144,9 +144,17 @@ class _UpdP_ScreenState extends State<UpdP_Screen> {
     final btnGuardar = ElevatedButton(
       onPressed: () async{
         if (mediaUpload == null) {
+          if (txtconNombre.text.isEmpty || txtconDesc.text.isEmpty || txtconPrecio.text.isEmpty || txtconStock.text.isEmpty) {
+          var snackbar = SnackBar(content: Text('Llene todos los campos porfavor'));
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        } else {
           await prod_firebase!.updProduct(arguments['id'], txtconNombre.text, txtconDesc.text, double.tryParse(txtconPrecio.text)!, int.tryParse(txtconStock.text)!, dropDownValue!, url).then((_) {
-          Navigator.pop(context);
+            var snackbar = SnackBar(content: Text('Producto actualizado!!'));
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+            Navigator.pop(context);
           });
+        }
+          
         }else{
           final uploaded = await uploadMedia(mediaUpload!);
           await prod_firebase!.updProduct(arguments['id'], txtconNombre.text, txtconDesc.text, double.tryParse(txtconPrecio.text)!, int.tryParse(txtconStock.text)!, dropDownValue!, url).then((_) {
@@ -175,12 +183,6 @@ class _UpdP_ScreenState extends State<UpdP_Screen> {
             });
           }, 
           child: Text('Seleccione su imagen')
-        ),
-        ElevatedButton(
-          onPressed: () async{
-            
-          }, 
-          child: Text('Subir a firebase')
         )
       ],
     );

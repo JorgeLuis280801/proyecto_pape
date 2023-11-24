@@ -131,13 +131,20 @@ class _AddP_ScreenState extends State<AddP_Screen> {
 
     final btnGuardar = ElevatedButton(
       onPressed: () async{
-        if (mediaUpload == null) {
+        if (txtconNombre.text.isEmpty || txtconDesc.text.isEmpty || txtconPrecio.text.isEmpty || txtconStock.text.isEmpty) {
+          var snackbar = SnackBar(content: Text('Llene todos los campos porfavor'));
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        } else {
+          if (mediaUpload == null) {
               return;
             }
-        final uploaded = await uploadMedia(mediaUpload!);
-        await prod_firebase!.insProduct(txtconNombre.text, txtconDesc.text, double.tryParse(txtconPrecio.text)!, int.tryParse(txtconStock.text)!, dropDownValue!, url).then((_) {
-          Navigator.pop(context);
-        });
+          final uploaded = await uploadMedia(mediaUpload!);
+          await prod_firebase!.insProduct(txtconNombre.text, txtconDesc.text, double.tryParse(txtconPrecio.text)!, int.tryParse(txtconStock.text)!, dropDownValue!, url).then((_) {
+            var snackbar = SnackBar(content: Text('Producto registrado!!'));
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+            Navigator.pop(context);
+          });
+        }
       }, 
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 255, 255, 255)),
@@ -165,12 +172,6 @@ class _AddP_ScreenState extends State<AddP_Screen> {
           }, 
           child: Text('Seleccione su imagen')
         ),
-        ElevatedButton(
-          onPressed: () async{
-            
-          }, 
-          child: Text('Subir a firebase')
-        )
       ],
     );
 

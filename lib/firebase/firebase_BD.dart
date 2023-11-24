@@ -25,6 +25,4 @@ class Prod_Firebase {
     return _productCollection!.snapshots();
   }
 
-  
-
 }

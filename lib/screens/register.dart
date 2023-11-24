@@ -72,7 +72,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
       onPressed: (){
         email = txtConEmail.text;
         String pwd = txtConPwd.text;
-        emailauth.createUser(email: email!, pwdUser: pwd);
+        String pwdC = txtConPwdConf.text;
+        if (email!.isEmpty || pwd.isEmpty || pwdC.isEmpty) {
+          var snackbar = SnackBar(content: Text('Llene todos los campos por favor'));
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        }else{
+          if (pwd != pwdC) {
+            var snackbar = SnackBar(content: Text('Las contraseñas no coinciden'));
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          }else{
+            emailauth.createUser(email: email!, pwdUser: pwd);
+            var snackbar = SnackBar(content: Text('Correo de verificacion enviado'));
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          }
+        }
       }, 
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 0)),
@@ -89,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 0)),
         fixedSize: MaterialStateProperty.all<Size>(const Size(500, 50)),
       ),
-      child: const Text('Cancelar registro', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
+      child: const Text('Volver al login', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
     );
 
     return Scaffold(
@@ -159,9 +172,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       onPressed: ()async{
                         try {
                           await emailauth.resendConfirmationEmail(email!);
-                          // Puedes mostrar un mensaje de éxito o redirigir al usuario a otra pantalla
-                          print('Correo de verificación enviado exitosamente');
+                          var snackbar = SnackBar(content: Text('Correo de verificacion reenviado'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackbar);
                         } catch (e) {
+                          var snackbar = SnackBar(content: Text('Error al reenviar correo de verificacion espere unos minutos'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackbar);
                           print('Error al enviar el correo de verificación: $e');
                         }
                       }, 

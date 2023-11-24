@@ -86,20 +86,12 @@ class _DashboardPapeScreenState extends State<DashboardPapeScreen> {
         children: [
           UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage(foto ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtwxHjIdPiNd-UXHdVZn9lZP3SLjRXEQSfUw&usqp=CAU'),
+              backgroundImage: CachedNetworkImageProvider(foto ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtwxHjIdPiNd-UXHdVZn9lZP3SLjRXEQSfUw&usqp=CAU'),
             ),
             accountName: Text('Usuario: $usr'), 
             accountEmail: Text('Email: $email')
             ),
             const SizedBox(height: 20),
-              ListTile(
-              leading: const Icon(Icons.shop, color: Colors.white,),
-              trailing: const Icon(Icons.chevron_right),
-              title: const Text('Mis compras'),
-              onTap: (){
-                Navigator.pushNamed(context, '/compras');
-              },
-              ),
               ListTile(
               leading: const Icon(Icons.shop_two, color: Colors.white,),
               trailing: const Icon(Icons.chevron_right),
